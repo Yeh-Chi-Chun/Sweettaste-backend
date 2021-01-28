@@ -10,10 +10,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.dto.OrderBean;
+import com.example.demo.dto.OrderProductBean;
 import com.example.demo.dto.ProductBean;
 import com.example.demo.dto.UserBean;
 import com.example.demo.dto.dataBean;
 import com.example.demo.dto.loginOBJ;
+import com.example.demo.repository.OrderDao;
 import com.example.demo.repository.ProductDao;
 import com.example.demo.repository.UserDAO;
 import com.fasterxml.jackson.databind.util.JSONPObject;
@@ -26,6 +30,8 @@ public class controller {
 	
 	@Autowired ProductDao productDao;
 	@Autowired UserDAO userDao;
+	@Autowired OrderDao orderDao;
+	
 	
 	@GetMapping("/")
 	@ResponseBody
@@ -87,6 +93,39 @@ public class controller {
         return userDao.checkLogin(data);
     }
 	
+	@PostMapping("/insertOrder")
+	@ResponseBody
+	public String insertorder(@RequestBody OrderBean data )
+	{
+		
+		System.out.print(data.getOid());
+		
+		return orderDao.insertOrder(data);
+	}
+	
+	@PostMapping("/insertOrderProduct")
+	@ResponseBody
+	public String insertorderproduct(@RequestBody OrderProductBean data )
+	{
+		
+		System.out.print(data.getOid());
+		
+		return orderDao.insertOrderProduct(data);
+	}
+	
+	@GetMapping("/getOrderProduct")
+	@ResponseBody
+	public List<OrderProductBean> getOrderProduct() 
+	{
+		return orderDao.getOrderProductData();
+	}
+	
+	@GetMapping("/getOrder")
+	@ResponseBody
+	public List<OrderBean> getOrder() 
+	{
+		return orderDao.getOrderData();
+	}
 	
 	
 	

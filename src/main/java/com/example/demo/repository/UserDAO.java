@@ -68,6 +68,7 @@ public class UserDAO {
 					loginObj.setUserName(element.getUserName());
 					loginObj.setStatus("1");
 					loginObj.setMessage("登入成功");
+					break;
 				}
 				else
 				{

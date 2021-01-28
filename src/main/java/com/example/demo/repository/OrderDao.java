@@ -9,10 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.RowMapperResultSetExtractor;
+import org.springframework.stereotype.Repository;
 
 import com.example.demo.dto.OrderBean;
+import com.example.demo.dto.OrderProductBean;
+import com.example.demo.dto.ProductBean;
 import com.example.demo.dto.UserBean;
 
+@Repository
 public class OrderDao {
 	
 @Autowired private JdbcTemplate jdbcTemplate;
@@ -39,14 +43,62 @@ public class OrderDao {
 		}
 	}
 	
-	public List<OrderBean> getUserData() {
+	public List<OrderBean> getOrderData() {
 		
 		List<OrderBean> OrderListData = new ArrayList<OrderBean>();
-		OrderListData = (List<OrderBean>)jdbcTemplate.query("SELECT * FROM user",
+		OrderListData = (List<OrderBean>)jdbcTemplate.query("SELECT * FROM `order`",
 				new RowMapperResultSetExtractor(new OrderRowMapper()));
 		
 		
 		return OrderListData;			
 	}
+	
+	private class OrderProductRowMapper implements RowMapper{
 
+		@Override
+		public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+			
+			OrderProductBean orderProductBean = new OrderProductBean();
+			
+			
+			orderProductBean.setOid(rs.getString("oid"));
+			orderProductBean.setProductName(rs.getString("productName"));
+			orderProductBean.setAmount(rs.getString("amount"));
+		
+			
+			
+			return orderProductBean;
+		}
+	}
+	
+	public List<OrderProductBean> getOrderProductData() {
+		
+		List<OrderProductBean> OrderProductListData = new ArrayList<OrderProductBean>();
+		OrderProductListData = (List<OrderProductBean>)jdbcTemplate.query("SELECT * FROM orderproduct",
+				new RowMapperResultSetExtractor(new OrderProductRowMapper()));
+		
+		
+		return OrderProductListData;			
+	}
+	
+	public String insertOrder(OrderBean data) {
+		 jdbcTemplate.update("insert into `order` (`name`,email,userName,phoneNumber,address,amount,delStatus,oid) values (?,?,?,?,?,?,?,?);", 
+				data.getName(), data.getEmail(),data.getUserName(),
+				data.getPhoneNumber(),data.getAddress(),data.getAmount(),
+				data.getDelStatus(),data.getOid());
+	
+		 System.out.print("insert OK");
+		 
+		 return "insert OK";
+	}
+	
+	public String insertOrderProduct(OrderProductBean data) {
+		 jdbcTemplate.update("insert into orderproduct (oid,productName,amount) values (?,?,?);", 
+				data.getOid(), data.getProductName(),data.getAmount());
+	
+		 System.out.print("insert OK");
+		 
+		 return "insert OK";
+	
+		}
 }
