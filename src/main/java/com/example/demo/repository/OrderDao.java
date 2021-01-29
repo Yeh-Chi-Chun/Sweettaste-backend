@@ -101,4 +101,15 @@ public class OrderDao {
 		 return "insert OK";
 	
 		}
+	
+	public String updateOrderData(OrderBean data) {
+			
+			String SQLstr = "update `order` set delStatus=? where oid=?";
+			jdbcTemplate.update(SQLstr,data.getDelStatus(),data.getOid());
+		
+			 System.out.print("update OK");
+			 
+		return "成功修改";
+}
+	
 }

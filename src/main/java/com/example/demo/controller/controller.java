@@ -98,7 +98,7 @@ public class controller {
 	public String insertorder(@RequestBody OrderBean data )
 	{
 		
-		System.out.print(data.getOid());
+		System.out.println(data.getOid());
 		
 		return orderDao.insertOrder(data);
 	}
@@ -108,7 +108,7 @@ public class controller {
 	public String insertorderproduct(@RequestBody OrderProductBean data )
 	{
 		
-		System.out.print(data.getOid());
+		System.out.println(data.getOid());
 		
 		return orderDao.insertOrderProduct(data);
 	}
@@ -127,6 +127,17 @@ public class controller {
 		return orderDao.getOrderData();
 	}
 	
+	@PostMapping("/updateOrder")
+	@ResponseBody
+	public String updateOrder(@RequestBody OrderBean data )
+	{
+		
+		System.out.println(data.getDelStatus());
+		System.out.println(data.getOid());
+		
+		
+		return orderDao.updateOrderData(data);
+	}
 	
 	
 
