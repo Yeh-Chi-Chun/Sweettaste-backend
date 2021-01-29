@@ -76,8 +76,8 @@ public class ProductDao {
 	
 	public String updateData(ProductBean data) {
 		
-		String SQLstr = "update product set productPrice=?,productPic=? ,reserve=?,newList=?,popular=?,featured=?,isCake=?,isSweets=? where productName=?";
-		jdbcTemplate.update(SQLstr,data.getProductPrice(),data.getProductPic(),data.getReserve(),data.getNewList(),data.getPopular(),data.getFeatured(),data.getIsCake(),data.getIsSweets(),data.getProductName());
+		String SQLstr = "update product set productPrice=?,reserve=?,newList=?,popular=?,featured=?,isCake=?,isSweets=? where productName=?";
+		jdbcTemplate.update(SQLstr,data.getProductPrice(),data.getReserve(),data.getNewList(),data.getPopular(),data.getFeatured(),data.getIsCake(),data.getIsSweets(),data.getProductName());
 	
 		 System.out.print("update OK");
 		 

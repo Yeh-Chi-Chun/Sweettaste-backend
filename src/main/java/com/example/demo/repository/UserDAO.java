@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.RowMapperResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.dto.OrderProductBean;
 import com.example.demo.dto.ProductBean;
 import com.example.demo.dto.UserBean;
 import com.example.demo.dto.loginOBJ;
@@ -86,6 +87,16 @@ public class UserDAO {
 		
 		return loginObj;
 	}
+	
+	public String register(UserBean data) {
+		 jdbcTemplate.update("insert into user (userName,password,email,admin) values (?,?,?,?);", 
+				data.getUserName(), data.getPassword(),data.getEmail(),data.getAdmin());
+	
+		 System.out.print("註冊成功");
+		 
+		 return "來自後端的註冊成功";
+	
+		}
 	
 	
 }

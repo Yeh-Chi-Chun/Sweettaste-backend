@@ -93,6 +93,16 @@ public class controller {
         return userDao.checkLogin(data);
     }
 	
+	@PostMapping("/register")
+	@ResponseBody
+	public String register(@RequestBody UserBean data )
+	{
+		
+		System.out.print(data.getUserName());
+		
+		return userDao.register(data);
+	}
+	
 	@PostMapping("/insertOrder")
 	@ResponseBody
 	public String insertorder(@RequestBody OrderBean data )
